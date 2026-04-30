@@ -57,14 +57,14 @@ export function About() {
           </div>
 
           <div className="grid md:grid-cols-2 gap-16 items-center">
-            <div className="space-y-5">
-              <p className="text-[var(--muted)] leading-relaxed text-lg">
+             <div className="space-y-5">
+              <p className="text-[var(--muted)] leading-relaxed text-lg about-text">
                 {t.about.p1}{" "}
                 <span className="text-[var(--foreground)] font-medium">{t.about.p1b}</span>
                 {t.about.p1c}
               </p>
-              <p className="text-[var(--muted)] leading-relaxed">{t.about.p2}</p>
-              <p className="text-[var(--muted)] leading-relaxed">{t.about.p3}</p>
+              <p className="text-[var(--muted)] leading-relaxed about-text">{t.about.p2}</p>
+              <p className="text-[var(--muted)] leading-relaxed about-text">{t.about.p3}</p>
               <div className="pt-2">
                 <a href="#contact" className="inline-flex items-center gap-2 text-[var(--accent)] text-sm font-medium hover:gap-4 transition-all duration-300">
                   {t.about.cta}
