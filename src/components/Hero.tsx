@@ -23,7 +23,7 @@ export function Hero() {
   }, [mouseX, mouseY]);
 
   return (
-    <section className="min-h-screen flex items-center justify-center relative overflow-hidden">
+    <section className="min-h-screen flex items-center justify-center relative overflow-hidden pt-20">
       <motion.div
         className="fixed w-[500px] h-[500px] rounded-full pointer-events-none z-0"
         style={{
