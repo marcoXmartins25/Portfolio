@@ -12,10 +12,10 @@ export function Contact() {
   const { t } = useLang();
 
   const contactItems = [
-    { icon: <Mail size={18} />, label: t.contact.labels.email, value: "marcojxmartins@gmail.com", href: "mailto:marcojxmartins@gmail.com", color: "#00d4ff" },
-    { icon: <Phone size={18} />, label: t.contact.labels.phone, value: "(+351) 934 208 391", href: "tel:+351934208391", color: "#7c3aed" },
-    { icon: <MapPin size={18} />, label: t.contact.labels.address, value: "Variz, Mogadouro, Bragança", color: "#10b981" },
-    { icon: <GithubIcon size={18} />, label: t.contact.labels.github, value: "github.com/marcoXmartins25", href: "https://github.com/marcoXmartins25", color: "var(--foreground)" },
+    { icon: <Mail size={18} />, label: t.contact.labels.email, value: "marcojxmartins@gmail.com", href: "mailto:marcojxmartins@gmail.com", color: "#00d4ff", bgOpacity: true },
+    { icon: <Phone size={18} />, label: t.contact.labels.phone, value: "(+351) 934 208 391", href: "tel:+351934208391", color: "#7c3aed", bgOpacity: true },
+    { icon: <MapPin size={18} />, label: t.contact.labels.address, value: "Variz, Mogadouro, Bragança", color: "#10b981", bgOpacity: true },
+    { icon: <GithubIcon size={18} />, label: t.contact.labels.github, value: "github.com/marcoXmartins25", href: "https://github.com/marcoXmartins25", color: "var(--foreground)", bgOpacity: false },
   ];
 
   return (
@@ -49,7 +49,7 @@ export function Contact() {
                 {contactItems.map((item) => {
                   const inner = (
                     <div className="flex items-center gap-4 p-4 rounded-xl bg-[var(--card-bg)] border border-[var(--card-border)] hover:border-opacity-50 transition-all duration-300">
-                      <div className="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0" style={{ background: `${item.color}15`, color: item.color }}>
+                      <div className="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0" style={item.bgOpacity ? { background: `${item.color}15`, color: item.color } : { background: "var(--card-border)", color: "var(--foreground)" }}>
                         {item.icon}
                       </div>
                       <div>

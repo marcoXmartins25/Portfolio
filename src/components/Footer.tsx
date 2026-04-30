@@ -18,7 +18,7 @@ export function Footer() {
       <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
         <a href="#" className="text-lg font-black">
           <span className="gradient-text">&lt;Marco</span>
-          <span className="text-white"> /&gt;</span>
+          <span className="text-[var(--foreground)]"> /&gt;</span>
         </a>
         <p className="text-[var(--muted)] text-sm">
           © {new Date().getFullYear()} Marco Martins · {t.footer.madeWith}{" "}
