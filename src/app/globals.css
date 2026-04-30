@@ -147,11 +147,6 @@ body {
 .about-text {
   text-align: justify;
   text-justify: inter-word;
-}
-
-@media (max-width: 768px) {
-  .about-text {
-    text-align: left;
-    text-justify: auto;
-  }
+  -webkit-hyphens: auto;
+  hyphens: auto;
 }
