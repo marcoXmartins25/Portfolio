@@ -1,15 +1,18 @@
 "use client";
 
 import { motion, useInView } from "framer-motion";
-import { useRef } from "react";
-import { Mail, MapPin, Phone, Send } from "lucide-react";
+import { useRef, useState } from "react";
+import { Mail, MapPin, Phone, Send, CheckCircle, AlertCircle, Loader2 } from "lucide-react";
 import { GithubIcon } from "@/components/icons/GithubIcon";
 import { useLang } from "@/context/LangContext";
+import { sendEmail } from "@/app/actions";
 
 export function Contact() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
   const { t } = useLang();
+  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const [errorMsg, setErrorMsg] = useState("");
 
   const contactItems = [
     { icon: <Mail size={18} />, label: t.contact.labels.email, value: "marcojxmartins@gmail.com", href: "mailto:marcojxmartins@gmail.com", color: "#00d4ff", bgOpacity: true },
@@ -17,6 +20,20 @@ export function Contact() {
     { icon: <MapPin size={18} />, label: t.contact.labels.address, value: "Variz, Mogadouro, Bragança", color: "#10b981", bgOpacity: true },
     { icon: <GithubIcon size={18} />, label: t.contact.labels.github, value: "github.com/marcoXmartins25", href: "https://github.com/marcoXmartins25", color: "var(--foreground)", bgOpacity: false },
   ];
+
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    setStatus("loading");
+    const formData = new FormData(e.currentTarget);
+    const result = await sendEmail(formData);
+    if (result.success) {
+      setStatus("success");
+      (e.target as HTMLFormElement).reset();
+    } else {
+      setStatus("error");
+      setErrorMsg(result.error ?? "Erro desconhecido.");
+    }
+  }
 
   return (
     <section id="contact" className="py-28 px-6" ref={ref}>
@@ -48,8 +65,14 @@ export function Contact() {
               <div className="space-y-3">
                 {contactItems.map((item) => {
                   const inner = (
-                    <div className="flex items-center gap-4 p-4 rounded-xl bg-[var(--card-bg)] border border-[var(--card-border)] hover:border-opacity-50 transition-all duration-300">
-                      <div className="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0" style={item.bgOpacity ? { background: `${item.color}15`, color: item.color } : { background: "var(--card-border)", color: "var(--foreground)" }}>
+                    <div className="flex items-center gap-4 p-4 rounded-xl bg-[var(--card-bg)] border border-[var(--card-border)] transition-all duration-300">
+                      <div
+                        className="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0"
+                        style={item.bgOpacity
+                          ? { background: `${item.color}15`, color: item.color }
+                          : { background: "var(--card-border)", color: "var(--foreground)" }
+                        }
+                      >
                         {item.icon}
                       </div>
                       <div>
@@ -75,34 +98,51 @@ export function Contact() {
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
               className="space-y-4 p-6 rounded-2xl bg-[var(--card-bg)] border border-[var(--card-border)]"
-              onSubmit={(e) => e.preventDefault()}
+              onSubmit={handleSubmit}
             >
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label htmlFor="name" className="block text-xs text-[var(--muted)] mb-2 uppercase tracking-wider">{t.contact.form.name}</label>
-                  <input type="text" id="name" className="w-full px-4 py-3 rounded-xl bg-[var(--input-bg)] border border-[var(--card-border)] focus:border-[var(--accent)] focus:outline-none focus:ring-1 focus:ring-[var(--accent)]/30 transition-all text-[var(--foreground)] placeholder:text-[var(--muted)] text-sm" placeholder={t.contact.form.namePlaceholder} />
+                  <input name="name" type="text" id="name" required className="w-full px-4 py-3 rounded-xl bg-[var(--input-bg)] border border-[var(--card-border)] focus:border-[var(--accent)] focus:outline-none focus:ring-1 focus:ring-[var(--accent)]/30 transition-all text-[var(--foreground)] placeholder:text-[var(--muted)] text-sm" placeholder={t.contact.form.namePlaceholder} />
                 </div>
                 <div>
                   <label htmlFor="email" className="block text-xs text-[var(--muted)] mb-2 uppercase tracking-wider">{t.contact.form.email}</label>
-                  <input type="email" id="email" className="w-full px-4 py-3 rounded-xl bg-[var(--input-bg)] border border-[var(--card-border)] focus:border-[var(--accent)] focus:outline-none focus:ring-1 focus:ring-[var(--accent)]/30 transition-all text-[var(--foreground)] placeholder:text-[var(--muted)] text-sm" placeholder={t.contact.form.emailPlaceholder} />
+                  <input name="email" type="email" id="email" required className="w-full px-4 py-3 rounded-xl bg-[var(--input-bg)] border border-[var(--card-border)] focus:border-[var(--accent)] focus:outline-none focus:ring-1 focus:ring-[var(--accent)]/30 transition-all text-[var(--foreground)] placeholder:text-[var(--muted)] text-sm" placeholder={t.contact.form.emailPlaceholder} />
                 </div>
               </div>
               <div>
                 <label htmlFor="subject" className="block text-xs text-[var(--muted)] mb-2 uppercase tracking-wider">{t.contact.form.subject}</label>
-                <input type="text" id="subject" className="w-full px-4 py-3 rounded-xl bg-[var(--input-bg)] border border-[var(--card-border)] focus:border-[var(--accent)] focus:outline-none focus:ring-1 focus:ring-[var(--accent)]/30 transition-all text-[var(--foreground)] placeholder:text-[var(--muted)] text-sm" placeholder={t.contact.form.subjectPlaceholder} />
+                <input name="subject" type="text" id="subject" required className="w-full px-4 py-3 rounded-xl bg-[var(--input-bg)] border border-[var(--card-border)] focus:border-[var(--accent)] focus:outline-none focus:ring-1 focus:ring-[var(--accent)]/30 transition-all text-[var(--foreground)] placeholder:text-[var(--muted)] text-sm" placeholder={t.contact.form.subjectPlaceholder} />
               </div>
               <div>
                 <label htmlFor="message" className="block text-xs text-[var(--muted)] mb-2 uppercase tracking-wider">{t.contact.form.message}</label>
-                <textarea id="message" rows={4} className="w-full px-4 py-3 rounded-xl bg-[var(--input-bg)] border border-[var(--card-border)] focus:border-[var(--accent)] focus:outline-none focus:ring-1 focus:ring-[var(--accent)]/30 transition-all text-[var(--foreground)] placeholder:text-[var(--muted)] resize-none text-sm" placeholder={t.contact.form.messagePlaceholder} />
+                <textarea name="message" id="message" rows={4} required className="w-full px-4 py-3 rounded-xl bg-[var(--input-bg)] border border-[var(--card-border)] focus:border-[var(--accent)] focus:outline-none focus:ring-1 focus:ring-[var(--accent)]/30 transition-all text-[var(--foreground)] placeholder:text-[var(--muted)] resize-none text-sm" placeholder={t.contact.form.messagePlaceholder} />
               </div>
+
+              {/* Feedback */}
+              {status === "success" && (
+                <div className="flex items-center gap-2 text-sm text-[var(--accent-3)] bg-[var(--accent-3)]/10 border border-[var(--accent-3)]/20 px-4 py-3 rounded-xl">
+                  <CheckCircle size={16} /> Mensagem enviada com sucesso!
+                </div>
+              )}
+              {status === "error" && (
+                <div className="flex items-center gap-2 text-sm text-red-400 bg-red-400/10 border border-red-400/20 px-4 py-3 rounded-xl">
+                  <AlertCircle size={16} /> {errorMsg}
+                </div>
+              )}
+
               <motion.button
                 type="submit"
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                className="w-full py-3 px-6 rounded-xl bg-gradient-to-r from-[var(--gradient-start)] to-[var(--gradient-end)] text-white font-semibold flex items-center justify-center gap-2 hover:opacity-90 transition-opacity glow"
+                disabled={status === "loading"}
+                whileHover={{ scale: status === "loading" ? 1 : 1.02 }}
+                whileTap={{ scale: status === "loading" ? 1 : 0.98 }}
+                className="w-full py-3 px-6 rounded-xl bg-gradient-to-r from-[var(--gradient-start)] to-[var(--gradient-end)] text-white font-semibold flex items-center justify-center gap-2 hover:opacity-90 transition-opacity glow disabled:opacity-60 disabled:cursor-not-allowed"
               >
-                <Send size={16} />
-                {t.contact.form.send}
+                {status === "loading" ? (
+                  <><Loader2 size={16} className="animate-spin" /> A enviar...</>
+                ) : (
+                  <><Send size={16} /> {t.contact.form.send}</>
+                )}
               </motion.button>
             </motion.form>
           </div>
