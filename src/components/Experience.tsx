@@ -39,7 +39,7 @@ export function Experience() {
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true, margin: "-50px" }}
                     transition={{ duration: 0.6, delay: index * 0.1 }}
-                    className={`relative flex gap-8 md:gap-0 ${isLeft ? "md:flex-row-reverse" : "md:flex-row"}`}
+                    className={`relative flex gap-8 md:gap-0 md:${isLeft ? "flex-row-reverse" : "flex-row"}`}
                   >
                     <div className="hidden md:block flex-1" />
                     <div className="absolute left-5 md:left-1/2 -translate-x-1/2 w-10 h-10 rounded-full bg-[var(--background)] border-2 border-[var(--accent)] flex items-center justify-center z-10 shadow-[0_0_20px_-5px_var(--accent)]">

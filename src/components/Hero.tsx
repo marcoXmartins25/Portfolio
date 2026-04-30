@@ -59,7 +59,7 @@ export function Hero() {
           <p className="text-[var(--muted)] text-lg mb-3 tracking-widest uppercase text-xs font-medium">
             {t.hero.greeting}
           </p>
-          <h1 className="text-6xl md:text-8xl font-black mb-4 leading-none tracking-tight">
+          <h1 className="text-5xl md:text-8xl font-black mb-4 leading-none tracking-tight">
             <span className="gradient-text">Marco</span>
             <br />
             <span className="text-[var(--foreground)]">Martins</span>
@@ -73,7 +73,7 @@ export function Hero() {
             <div className="h-px w-16 bg-gradient-to-l from-transparent to-[var(--accent)]/50" />
           </div>
 
-          <p className="text-lg text-[var(--muted)] max-w-xl mx-auto mb-10 leading-relaxed">
+          <p className="text-base md:text-lg text-[var(--muted)] max-w-xl mx-auto mb-10 leading-relaxed">
             {t.hero.description}{" "}
             <span className="text-[var(--foreground)] font-medium">{t.hero.performance}</span>,{" "}
             <span className="text-[var(--foreground)] font-medium">{t.hero.design}</span>{" "}

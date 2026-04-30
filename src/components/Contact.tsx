@@ -77,7 +77,7 @@ export function Contact() {
               className="space-y-4 p-6 rounded-2xl bg-[var(--card-bg)] border border-[var(--card-border)]"
               onSubmit={(e) => e.preventDefault()}
             >
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label htmlFor="name" className="block text-xs text-[var(--muted)] mb-2 uppercase tracking-wider">{t.contact.form.name}</label>
                   <input type="text" id="name" className="w-full px-4 py-3 rounded-xl bg-[var(--input-bg)] border border-[var(--card-border)] focus:border-[var(--accent)] focus:outline-none focus:ring-1 focus:ring-[var(--accent)]/30 transition-all text-[var(--foreground)] placeholder:text-[var(--muted)] text-sm" placeholder={t.contact.form.namePlaceholder} />
