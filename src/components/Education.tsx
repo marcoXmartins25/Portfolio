@@ -3,20 +3,12 @@
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import { GraduationCap } from "lucide-react";
-
-const education = [
-  {
-    degree: "CTESP - Desenvolvimento de Software",
-    institution: "Instituto Politécnico de Bragança",
-    period: "2023 - 2026",
-    description:
-      "Curso com enfoque em desenvolvimento de software, incluindo programação orientada a objetos, bases de dados, desenvolvimento web (frontend e backend) e metodologias ágeis. Desenvolvimento de projetos práticos aplicados a contextos reais.",
-  },
-];
+import { useLang } from "@/context/LangContext";
 
 export function Education() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const { t } = useLang();
 
   return (
     <section id="education" className="py-28 px-6" ref={ref}>
@@ -29,13 +21,13 @@ export function Education() {
           <div className="flex items-center gap-4 mb-12">
             <div className="h-px flex-1 bg-gradient-to-r from-transparent to-[var(--accent)]/30" />
             <h2 className="text-3xl md:text-4xl font-black">
-              <span className="gradient-text">Formação</span>
+              <span className="gradient-text">{t.education.title}</span>
             </h2>
             <div className="h-px flex-1 bg-gradient-to-l from-transparent to-[var(--accent)]/30" />
           </div>
 
           <div className="grid md:grid-cols-2 gap-8">
-            {education.map((edu, index) => (
+            {t.education.items.map((edu, index) => (
               <motion.div
                 key={index}
                 initial={{ opacity: 0, y: 30 }}

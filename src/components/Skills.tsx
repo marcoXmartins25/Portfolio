@@ -17,6 +17,7 @@ import { PostgresIcon } from "@/components/icons/PostgresIcon";
 import { MySqlIcon } from "@/components/icons/MySqlIcon";
 import { ApiIcon } from "@/components/icons/ApiIcon";
 import { GitIcon } from "@/components/icons/GitIcon";
+import { useLang } from "@/context/LangContext";
 
 const skillIcons: Record<string, React.ReactNode> = {
   "HTML5": <HtmlIcon size={28} />,
@@ -35,29 +36,13 @@ const skillIcons: Record<string, React.ReactNode> = {
   "AI": <AIIcon size={28} />,
 };
 
-const allSkills = [
-  { name: "HTML5", label: "Marcação" },
-  { name: "CSS3", label: "Estilização" },
-  { name: "JavaScript", label: "Linguagem" },
-  { name: "React", label: "Frontend" },
-  { name: "PHP (Laravel)", label: "Backend" },
-  { name: "PostgreSQL", label: "Base de dados" },
-  { name: "MySQL", label: "Base de dados" },
-  { name: "APIs REST", label: "Comunicação" },
-  { name: "Git / GitHub", label: "Controlo de versões" },
-  { name: "VS Code", label: "Editor" },
-  { name: "DBeaver", label: "Gestão de BD" },
-  { name: "Postman", label: "Testes de APIs" },
-  { name: "Figma", label: "UI/UX Design" },
-  { name: "AI", label: "Inteligência artificial" },
-];
-
 export function Skills() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const { t } = useLang();
 
   return (
-    <section id="skills" className="py-24 px-6" ref={ref}>
+    <section id="skills" className="py-28 px-6" ref={ref}>
       <div className="max-w-6xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 40 }}
@@ -67,15 +52,15 @@ export function Skills() {
           <div className="flex items-center gap-4 mb-12">
             <div className="h-px flex-1 bg-gradient-to-r from-transparent to-[var(--accent)]/30" />
             <h2 className="text-3xl md:text-4xl font-black">
-              <span className="gradient-text">Competências</span>
+              <span className="gradient-text">{t.skills.title}</span>
             </h2>
             <div className="h-px flex-1 bg-gradient-to-l from-transparent to-[var(--accent)]/30" />
           </div>
+
           <div className="relative">
             <div className="absolute left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-[var(--accent)]/50 via-[var(--accent)]/30 to-transparent hidden md:block" />
-
             <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-6">
-              {allSkills.map((skill, index) => (
+              {t.skills.items.map((skill, index) => (
                 <motion.div
                   key={skill.name}
                   initial={{ opacity: 0, y: 20 }}
@@ -85,15 +70,10 @@ export function Skills() {
                   className="flex flex-col items-center gap-3 p-4 rounded-2xl bg-[var(--card-bg)] border border-[var(--card-border)] hover:border-[var(--accent)]/40 transition-all duration-300 hover:shadow-[0_0_30px_-10px_var(--accent)] hover:-translate-y-1 relative"
                 >
                   <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-2 h-2 rounded-full bg-[var(--accent)] hidden md:block" />
-
-                  <div>
-                    {skillIcons[skill.name]}
-                  </div>
+                  <div>{skillIcons[skill.name]}</div>
                   <div className="text-center">
                     <p className="text-sm font-medium">{skill.name}</p>
-                    <p className="text-xs text-[var(--muted)] mt-1">
-                      {skill.label}
-                    </p>
+                    <p className="text-xs text-[var(--muted)] mt-1">{skill.label}</p>
                   </div>
                 </motion.div>
               ))}

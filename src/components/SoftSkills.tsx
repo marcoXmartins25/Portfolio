@@ -2,25 +2,12 @@
 
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
-
-const softSkills = [
-  { name: "Comunicação", icon: "💬" },
-  { name: "Criatividade", icon: "✨" },
-  { name: "Autonomia", icon: "🎯" },
-  { name: "Trabalho em equipa", icon: "🤝" },
-  { name: "Gestão de tempo", icon: "⏱️" },
-  { name: "Responsabilidade", icon: "🛡️" },
-];
-
-const languages = [
-  { name: "Português", level: "Nativo", percent: 100, color: "#00d4ff" },
-  { name: "Inglês", level: "Intermédio (B2)", percent: 70, color: "#7c3aed" },
-  { name: "Espanhol", level: "Intermédio (B1)", percent: 55, color: "#10b981" },
-];
+import { useLang } from "@/context/LangContext";
 
 export function SoftSkills() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const { t } = useLang();
 
   return (
     <section id="soft-skills" className="py-28 px-6" ref={ref}>
@@ -33,19 +20,18 @@ export function SoftSkills() {
           <div className="flex items-center gap-4 mb-12">
             <div className="h-px flex-1 bg-gradient-to-r from-transparent to-[var(--accent)]/30" />
             <h2 className="text-3xl md:text-4xl font-black">
-              <span className="gradient-text">Competências Pessoais</span>
+              <span className="gradient-text">{t.softSkills.title}</span>
             </h2>
             <div className="h-px flex-1 bg-gradient-to-l from-transparent to-[var(--accent)]/30" />
           </div>
 
           <div className="grid md:grid-cols-2 gap-12">
-            {/* Soft Skills */}
             <div>
               <h3 className="text-sm font-semibold text-[var(--muted)] uppercase tracking-widest mb-6">
-                Soft Skills
+                {t.softSkills.softLabel}
               </h3>
               <div className="grid grid-cols-2 gap-3">
-                {softSkills.map((skill, i) => (
+                {t.softSkills.skills.map((skill, i) => (
                   <motion.div
                     key={skill.name}
                     initial={{ opacity: 0, scale: 0.9 }}
@@ -55,21 +41,18 @@ export function SoftSkills() {
                     className="flex items-center gap-3 p-4 rounded-xl bg-[var(--card-bg)] border border-[var(--card-border)] hover:border-[var(--accent)]/30 transition-all duration-300 cursor-default"
                   >
                     <span className="text-xl">{skill.icon}</span>
-                    <span className="text-sm font-medium text-[var(--muted)] group-hover:text-white">
-                      {skill.name}
-                    </span>
+                    <span className="text-sm font-medium text-[var(--muted)]">{skill.name}</span>
                   </motion.div>
                 ))}
               </div>
             </div>
 
-            {/* Languages */}
             <div>
               <h3 className="text-sm font-semibold text-[var(--muted)] uppercase tracking-widest mb-6">
-                Idiomas
+                {t.softSkills.langLabel}
               </h3>
               <div className="space-y-6">
-                {languages.map((lang, i) => (
+                {t.softSkills.languages.map((lang, i) => (
                   <motion.div
                     key={lang.name}
                     initial={{ opacity: 0, x: 30 }}
@@ -78,9 +61,7 @@ export function SoftSkills() {
                   >
                     <div className="flex justify-between items-center mb-2">
                       <span className="font-semibold">{lang.name}</span>
-                      <span className="text-sm font-mono" style={{ color: lang.color }}>
-                        {lang.level}
-                      </span>
+                      <span className="text-sm font-mono" style={{ color: lang.color }}>{lang.level}</span>
                     </div>
                     <div className="h-2 rounded-full bg-[var(--card-border)] overflow-hidden">
                       <motion.div

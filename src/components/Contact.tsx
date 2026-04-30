@@ -4,17 +4,19 @@ import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import { Mail, MapPin, Phone, Send } from "lucide-react";
 import { GithubIcon } from "@/components/icons/GithubIcon";
-
-const contactItems = [
-  { icon: <Mail size={18} />, label: "Email", value: "marcojxmartins@gmail.com", href: "mailto:marcojxmartins@gmail.com", color: "#00d4ff" },
-  { icon: <Phone size={18} />, label: "Telefone", value: "(+351) 934 208 391", href: "tel:+351934208391", color: "#7c3aed" },
-  { icon: <MapPin size={18} />, label: "Morada", value: "Variz, Mogadouro, Bragança", color: "#10b981" },
-  { icon: <GithubIcon size={18} />, label: "GitHub", value: "github.com/marcoXmartins25", href: "https://github.com/marcoXmartins25", color: "#f0f0ff" },
-];
+import { useLang } from "@/context/LangContext";
 
 export function Contact() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const { t } = useLang();
+
+  const contactItems = [
+    { icon: <Mail size={18} />, label: t.contact.labels.email, value: "marcojxmartins@gmail.com", href: "mailto:marcojxmartins@gmail.com", color: "#00d4ff" },
+    { icon: <Phone size={18} />, label: t.contact.labels.phone, value: "(+351) 934 208 391", href: "tel:+351934208391", color: "#7c3aed" },
+    { icon: <MapPin size={18} />, label: t.contact.labels.address, value: "Variz, Mogadouro, Bragança", color: "#10b981" },
+    { icon: <GithubIcon size={18} />, label: t.contact.labels.github, value: "github.com/marcoXmartins25", href: "https://github.com/marcoXmartins25", color: "var(--foreground)" },
+  ];
 
   return (
     <section id="contact" className="py-28 px-6" ref={ref}>
@@ -27,36 +29,32 @@ export function Contact() {
           <div className="flex items-center gap-4 mb-12">
             <div className="h-px flex-1 bg-gradient-to-r from-transparent to-[var(--accent)]/30" />
             <h2 className="text-3xl md:text-4xl font-black">
-              <span className="gradient-text">Contacto</span>
+              <span className="gradient-text">{t.contact.title}</span>
             </h2>
             <div className="h-px flex-1 bg-gradient-to-l from-transparent to-[var(--accent)]/30" />
           </div>
 
           <div className="grid md:grid-cols-2 gap-12">
-            {/* Left */}
             <div className="space-y-8">
               <div>
-                <p className="text-2xl font-bold mb-2">Vamos <span className="gradient-text">trabalhar juntos</span>?</p>
-                <p className="text-[var(--muted)] leading-relaxed">
-                  Estou sempre aberto a novas oportunidades e projetos interessantes. Entra em contacto!
+                <p className="text-2xl font-bold mb-2">
+                  {t.contact.heading}{" "}
+                  <span className="gradient-text">{t.contact.headingAccent}</span>
+                  {t.contact.headingEnd}
                 </p>
+                <p className="text-[var(--muted)] leading-relaxed">{t.contact.description}</p>
               </div>
 
               <div className="space-y-3">
                 {contactItems.map((item) => {
                   const inner = (
-                    <div className="flex items-center gap-4 p-4 rounded-xl bg-[var(--card-bg)] border border-[var(--card-border)] hover:border-opacity-50 transition-all duration-300 group"
-                      style={{ ["--item-color" as string]: item.color }}
-                    >
-                      <div
-                        className="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0 transition-colors"
-                        style={{ background: `${item.color}15`, color: item.color }}
-                      >
+                    <div className="flex items-center gap-4 p-4 rounded-xl bg-[var(--card-bg)] border border-[var(--card-border)] hover:border-opacity-50 transition-all duration-300">
+                      <div className="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0" style={{ background: `${item.color}15`, color: item.color }}>
                         {item.icon}
                       </div>
                       <div>
                         <p className="text-xs text-[var(--muted)]">{item.label}</p>
-                        <p className="text-sm font-medium text-white">{item.value}</p>
+                        <p className="text-sm font-medium text-[var(--foreground)]">{item.value}</p>
                       </div>
                     </div>
                   );
@@ -71,7 +69,6 @@ export function Contact() {
               </div>
             </div>
 
-            {/* Form */}
             <motion.form
               initial={{ opacity: 0, x: 30 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -82,50 +79,30 @@ export function Contact() {
             >
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label htmlFor="name" className="block text-xs text-[var(--muted)] mb-2 uppercase tracking-wider">Nome</label>
-                  <input
-                    type="text"
-                    id="name"
-                    className="w-full px-4 py-3 rounded-xl bg-[var(--background)] border border-[var(--card-border)] focus:border-[var(--accent)] focus:outline-none focus:ring-1 focus:ring-[var(--accent)]/30 transition-all text-white text-sm"
-                    placeholder="O teu nome"
-                  />
+                  <label htmlFor="name" className="block text-xs text-[var(--muted)] mb-2 uppercase tracking-wider">{t.contact.form.name}</label>
+                  <input type="text" id="name" className="w-full px-4 py-3 rounded-xl bg-[var(--input-bg)] border border-[var(--card-border)] focus:border-[var(--accent)] focus:outline-none focus:ring-1 focus:ring-[var(--accent)]/30 transition-all text-[var(--foreground)] placeholder:text-[var(--muted)] text-sm" placeholder={t.contact.form.namePlaceholder} />
                 </div>
                 <div>
-                  <label htmlFor="email" className="block text-xs text-[var(--muted)] mb-2 uppercase tracking-wider">Email</label>
-                  <input
-                    type="email"
-                    id="email"
-                    className="w-full px-4 py-3 rounded-xl bg-[var(--background)] border border-[var(--card-border)] focus:border-[var(--accent)] focus:outline-none focus:ring-1 focus:ring-[var(--accent)]/30 transition-all text-white text-sm"
-                    placeholder="seu@email.com"
-                  />
+                  <label htmlFor="email" className="block text-xs text-[var(--muted)] mb-2 uppercase tracking-wider">{t.contact.form.email}</label>
+                  <input type="email" id="email" className="w-full px-4 py-3 rounded-xl bg-[var(--input-bg)] border border-[var(--card-border)] focus:border-[var(--accent)] focus:outline-none focus:ring-1 focus:ring-[var(--accent)]/30 transition-all text-[var(--foreground)] placeholder:text-[var(--muted)] text-sm" placeholder={t.contact.form.emailPlaceholder} />
                 </div>
               </div>
               <div>
-                <label htmlFor="subject" className="block text-xs text-[var(--muted)] mb-2 uppercase tracking-wider">Assunto</label>
-                <input
-                  type="text"
-                  id="subject"
-                  className="w-full px-4 py-3 rounded-xl bg-[var(--background)] border border-[var(--card-border)] focus:border-[var(--accent)] focus:outline-none focus:ring-1 focus:ring-[var(--accent)]/30 transition-all text-white text-sm"
-                  placeholder="Assunto da mensagem"
-                />
+                <label htmlFor="subject" className="block text-xs text-[var(--muted)] mb-2 uppercase tracking-wider">{t.contact.form.subject}</label>
+                <input type="text" id="subject" className="w-full px-4 py-3 rounded-xl bg-[var(--input-bg)] border border-[var(--card-border)] focus:border-[var(--accent)] focus:outline-none focus:ring-1 focus:ring-[var(--accent)]/30 transition-all text-[var(--foreground)] placeholder:text-[var(--muted)] text-sm" placeholder={t.contact.form.subjectPlaceholder} />
               </div>
               <div>
-                <label htmlFor="message" className="block text-xs text-[var(--muted)] mb-2 uppercase tracking-wider">Mensagem</label>
-                <textarea
-                  id="message"
-                  rows={4}
-                  className="w-full px-4 py-3 rounded-xl bg-[var(--background)] border border-[var(--card-border)] focus:border-[var(--accent)] focus:outline-none focus:ring-1 focus:ring-[var(--accent)]/30 transition-all text-white resize-none text-sm"
-                  placeholder="A tua mensagem..."
-                />
+                <label htmlFor="message" className="block text-xs text-[var(--muted)] mb-2 uppercase tracking-wider">{t.contact.form.message}</label>
+                <textarea id="message" rows={4} className="w-full px-4 py-3 rounded-xl bg-[var(--input-bg)] border border-[var(--card-border)] focus:border-[var(--accent)] focus:outline-none focus:ring-1 focus:ring-[var(--accent)]/30 transition-all text-[var(--foreground)] placeholder:text-[var(--muted)] resize-none text-sm" placeholder={t.contact.form.messagePlaceholder} />
               </div>
               <motion.button
                 type="submit"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                className="w-full py-3 px-6 rounded-xl bg-gradient-to-r from-[var(--gradient-start)] to-[var(--gradient-end)] text-[#050508] font-semibold flex items-center justify-center gap-2 hover:opacity-90 transition-opacity glow"
+                className="w-full py-3 px-6 rounded-xl bg-gradient-to-r from-[var(--gradient-start)] to-[var(--gradient-end)] text-white font-semibold flex items-center justify-center gap-2 hover:opacity-90 transition-opacity glow"
               >
                 <Send size={16} />
-                Enviar Mensagem
+                {t.contact.form.send}
               </motion.button>
             </motion.form>
           </div>

@@ -1,8 +1,11 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useLang } from "@/context/LangContext";
 
 export function Footer() {
+  const { t } = useLang();
+
   return (
     <motion.footer
       initial={{ opacity: 0 }}
@@ -18,15 +21,12 @@ export function Footer() {
           <span className="text-white"> /&gt;</span>
         </a>
         <p className="text-[var(--muted)] text-sm">
-          © {new Date().getFullYear()} Marco Martins · Feito com{" "}
-          <span className="text-[var(--accent)]">Next.js</span> &{" "}
+          © {new Date().getFullYear()} Marco Martins · {t.footer.madeWith}{" "}
+          <span className="text-[var(--accent)]">Next.js</span> {t.footer.and}{" "}
           <span className="text-[var(--accent-2)]">Tailwind CSS</span>
         </p>
-        <a
-          href="#"
-          className="text-xs text-[var(--muted)] hover:text-[var(--accent)] transition-colors"
-        >
-          Voltar ao topo ↑
+        <a href="#" className="text-xs text-[var(--muted)] hover:text-[var(--accent)] transition-colors">
+          {t.hero.scroll} ↑
         </a>
       </div>
     </motion.footer>
