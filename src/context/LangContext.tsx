@@ -3,9 +3,11 @@
 import { createContext, useContext, useState } from "react";
 import { translations, Lang } from "@/lib/i18n";
 
+type T = typeof translations.pt | typeof translations.en;
+
 const LangContext = createContext<{
   lang: Lang;
-  t: typeof translations.pt;
+  t: T;
   toggle: () => void;
 }>({
   lang: "pt",
