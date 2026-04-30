@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "O Teu Nome | Programador Full Stack",
-  description: "Portfólio e currículo de O Teu Nome - Programador Full Stack apaixonado por criar experiências digitais incríveis.",
+  title: "Marco Martins | Programador Full Stack",
+  description: "Portfólio e currículo de Marco Martins - Programador Full Stack apaixonado por criar experiências digitais incríveis.",
 };
 
 export default function RootLayout({
