@@ -1,6 +1,7 @@
 @import "tailwindcss";
 
-:root {
+:root,
+[data-theme="dark"] {
   --background: #050508;
   --foreground: #f0f0ff;
   --accent: #00d4ff;
@@ -11,6 +12,37 @@
   --muted: #8888aa;
   --gradient-start: #00d4ff;
   --gradient-end: #7c3aed;
+  --nav-bg: rgba(5, 5, 8, 0.9);
+  --grid-color: rgba(0, 212, 255, 0.03);
+  --grid-top: rgba(0, 212, 255, 0.08);
+  --selection-fg: #050508;
+  --input-bg: #0d0d14;
+  --placeholder: #5a5a7a;
+}
+
+[data-theme="light"] {
+  --background: #f0f2ff;
+  --foreground: #0a0a1a;
+  --accent: #0077aa;
+  --accent-2: #5b21b6;
+  --accent-3: #047857;
+  --card-bg: #ffffff;
+  --card-border: #d4d4e8;
+  --muted: #4a4a6a;
+  --gradient-start: #0077aa;
+  --gradient-end: #5b21b6;
+  --nav-bg: rgba(240, 242, 255, 0.92);
+  --grid-color: rgba(0, 119, 170, 0.05);
+  --grid-top: rgba(0, 119, 170, 0.07);
+  --selection-fg: #ffffff;
+  --input-bg: #f8f8ff;
+  --placeholder: #8888aa;
+}
+
+:root,
+[data-theme="dark"] {
+  --input-bg: var(--background);
+  --placeholder: #5a5a7a;
 }
 
 html {
@@ -22,15 +54,26 @@ body {
   color: var(--foreground);
   font-family: var(--font-geist-sans), system-ui, sans-serif;
   background-image:
-    radial-gradient(ellipse 80% 50% at 50% -20%, rgba(0, 212, 255, 0.08) 0%, transparent 60%),
-    linear-gradient(rgba(0, 212, 255, 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0, 212, 255, 0.03) 1px, transparent 1px);
+    radial-gradient(ellipse 80% 50% at 50% -20%, var(--grid-top) 0%, transparent 60%),
+    linear-gradient(var(--grid-color) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
   background-size: 100% 100%, 60px 60px, 60px 60px;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
+
+* {
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+
+/* Fix hardcoded text-white in light mode */
+[data-theme="light"] .text-white {
+  color: var(--foreground) !important;
+}
+
 
 ::selection {
   background-color: var(--accent);
-  color: #050508;
+  color: var(--selection-fg);
 }
 
 .gradient-text {
@@ -60,8 +103,8 @@ body {
 }
 
 .card-hover:hover {
-  border-color: rgba(0, 212, 255, 0.4);
-  box-shadow: 0 0 40px -15px rgba(0, 212, 255, 0.3), inset 0 0 40px -30px rgba(0, 212, 255, 0.05);
+  border-color: rgba(var(--accent), 0.4);
+  box-shadow: 0 0 40px -15px color-mix(in srgb, var(--accent) 30%, transparent), inset 0 0 40px -30px color-mix(in srgb, var(--accent) 5%, transparent);
   transform: translateY(-4px);
 }
 

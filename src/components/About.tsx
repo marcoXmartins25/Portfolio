@@ -3,12 +3,10 @@
 import { motion, useInView, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { useRef } from "react";
 import { Code2, Rocket, Users } from "lucide-react";
+import { useLang } from "@/context/LangContext";
 
-const stats = [
-  { number: "3+", label: "Anos de Experiência", icon: <Code2 size={20} />, color: "var(--accent)" },
-  { number: "3", label: "Projetos Concluídos", icon: <Rocket size={20} />, color: "var(--accent-2)" },
-  { number: "7+", label: "Tecnologias", icon: <Users size={20} />, color: "var(--accent-3)" },
-];
+const icons = [<Code2 size={20} />, <Rocket size={20} />, <Users size={20} />];
+const colors = ["var(--accent)", "var(--accent-2)", "var(--accent-3)"];
 
 function TiltCard({ children, className }: { children: React.ReactNode; className?: string }) {
   const ref = useRef<HTMLDivElement>(null);
@@ -40,6 +38,7 @@ function TiltCard({ children, className }: { children: React.ReactNode; classNam
 export function About() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const { t } = useLang();
 
   return (
     <section id="about" className="py-28 px-6" ref={ref}>
@@ -52,7 +51,7 @@ export function About() {
           <div className="flex items-center gap-4 mb-12">
             <div className="h-px flex-1 bg-gradient-to-r from-transparent to-[var(--accent)]/30" />
             <h2 className="text-3xl md:text-4xl font-black">
-              <span className="gradient-text">Sobre Mim</span>
+              <span className="gradient-text">{t.about.title}</span>
             </h2>
             <div className="h-px flex-1 bg-gradient-to-l from-transparent to-[var(--accent)]/30" />
           </div>
@@ -60,31 +59,21 @@ export function About() {
           <div className="grid md:grid-cols-2 gap-16 items-center">
             <div className="space-y-5">
               <p className="text-[var(--muted)] leading-relaxed text-lg">
-                Sou programador de software com{" "}
-                <span className="text-white font-medium">3 anos de experiência</span>,
-                focado em desenvolvimento web com experiência numa vasta gama de linguagens e tecnologias.
+                {t.about.p1}{" "}
+                <span className="text-[var(--foreground)] font-medium">{t.about.p1b}</span>
+                {t.about.p1c}
               </p>
-              <p className="text-[var(--muted)] leading-relaxed">
-                A minha jornada na programação começou através dos jogos com amigos no PC. Essa curiosidade
-                inicial transformou-se numa paixão por construir e entender como o software funciona.
-              </p>
-              <p className="text-[var(--muted)] leading-relaxed">
-                Procuro integrar-me numa equipa onde possa crescer em toda a área tecnológica e contribuir
-                para projetos de longo prazo.
-              </p>
-
+              <p className="text-[var(--muted)] leading-relaxed">{t.about.p2}</p>
+              <p className="text-[var(--muted)] leading-relaxed">{t.about.p3}</p>
               <div className="pt-2">
-                <a
-                  href="#contact"
-                  className="inline-flex items-center gap-2 text-[var(--accent)] text-sm font-medium hover:gap-4 transition-all duration-300"
-                >
-                  Vamos trabalhar juntos →
+                <a href="#contact" className="inline-flex items-center gap-2 text-[var(--accent)] text-sm font-medium hover:gap-4 transition-all duration-300">
+                  {t.about.cta}
                 </a>
               </div>
             </div>
 
             <div className="grid grid-cols-1 gap-4">
-              {stats.map((stat, i) => (
+              {t.about.stats.map((stat, i) => (
                 <motion.div
                   key={stat.label}
                   initial={{ opacity: 0, x: 40 }}
@@ -95,14 +84,12 @@ export function About() {
                     <div className="flex items-center gap-4">
                       <div
                         className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0"
-                        style={{ background: `${stat.color}15`, color: stat.color }}
+                        style={{ background: `${colors[i]}15`, color: colors[i] }}
                       >
-                        {stat.icon}
+                        {icons[i]}
                       </div>
                       <div>
-                        <p className="text-3xl font-black" style={{ color: stat.color }}>
-                          {stat.number}
-                        </p>
+                        <p className="text-3xl font-black" style={{ color: colors[i] }}>{stat.number}</p>
                         <p className="text-sm text-[var(--muted)]">{stat.label}</p>
                       </div>
                     </div>

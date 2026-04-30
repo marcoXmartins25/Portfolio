@@ -3,10 +3,11 @@
 import { motion, useMotionValue, useSpring } from "framer-motion";
 import { ArrowDown, Mail, Sparkles } from "lucide-react";
 import { GithubIcon } from "@/components/icons/GithubIcon";
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
+import { useLang } from "@/context/LangContext";
 
 export function Hero() {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const { t } = useLang();
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
   const springX = useSpring(mouseX, { stiffness: 80, damping: 20 });
@@ -23,7 +24,6 @@ export function Hero() {
 
   return (
     <section className="min-h-screen flex items-center justify-center relative overflow-hidden">
-      {/* Cursor glow */}
       <motion.div
         className="fixed w-[500px] h-[500px] rounded-full pointer-events-none z-0"
         style={{
@@ -35,13 +35,11 @@ export function Hero() {
         }}
       />
 
-      {/* Background orbs */}
       <div className="absolute top-1/4 -left-40 w-[500px] h-[500px] bg-[var(--accent)]/10 rounded-full blur-[120px] animate-float" />
       <div className="absolute bottom-1/4 -right-40 w-[500px] h-[500px] bg-[var(--accent-2)]/10 rounded-full blur-[120px] animate-float" style={{ animationDelay: "2s" }} />
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-[var(--accent-3)]/5 rounded-full blur-[160px]" />
 
       <div className="text-center relative z-10 px-6 max-w-4xl mx-auto">
-        {/* Status badge */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -49,7 +47,7 @@ export function Hero() {
           className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[var(--accent-3)]/30 bg-[var(--accent-3)]/5 text-[var(--accent-3)] text-sm mb-8"
         >
           <span className="w-2 h-2 rounded-full bg-[var(--accent-3)] animate-pulse-glow" />
-          Disponível para novas oportunidades
+          {t.hero.available}
           <Sparkles size={14} />
         </motion.div>
 
@@ -59,27 +57,28 @@ export function Hero() {
           transition={{ duration: 0.8, delay: 0.1 }}
         >
           <p className="text-[var(--muted)] text-lg mb-3 tracking-widest uppercase text-xs font-medium">
-            Olá, eu sou
+            {t.hero.greeting}
           </p>
           <h1 className="text-6xl md:text-8xl font-black mb-4 leading-none tracking-tight">
             <span className="gradient-text">Marco</span>
             <br />
-            <span className="text-white">Martins</span>
+            <span className="text-[var(--foreground)]">Martins</span>
           </h1>
 
           <div className="flex items-center justify-center gap-3 mb-6">
             <div className="h-px w-16 bg-gradient-to-r from-transparent to-[var(--accent)]/50" />
             <p className="text-[var(--accent)] text-sm font-mono tracking-widest uppercase">
-              Full Stack Developer
+              {t.hero.role}
             </p>
             <div className="h-px w-16 bg-gradient-to-l from-transparent to-[var(--accent)]/50" />
           </div>
 
           <p className="text-lg text-[var(--muted)] max-w-xl mx-auto mb-10 leading-relaxed">
-            Apaixonado por criar experiências digitais que combinam{" "}
-            <span className="text-white font-medium">performance</span>,{" "}
-            <span className="text-white font-medium">design</span> e{" "}
-            <span className="text-white font-medium">código limpo</span>.
+            {t.hero.description}{" "}
+            <span className="text-[var(--foreground)] font-medium">{t.hero.performance}</span>,{" "}
+            <span className="text-[var(--foreground)] font-medium">{t.hero.design}</span>{" "}
+            {t.hero.description === "Apaixonado por criar experiências digitais que combinam" ? "e" : "and"}{" "}
+            <span className="text-[var(--foreground)] font-medium">{t.hero.cleanCode}</span>.
           </p>
         </motion.div>
 
@@ -91,15 +90,15 @@ export function Hero() {
         >
           <a
             href="#contact"
-            className="px-6 py-3 rounded-xl bg-gradient-to-r from-[var(--gradient-start)] to-[var(--gradient-end)] text-[#050508] font-semibold hover:opacity-90 transition-all duration-300 glow hover:scale-105"
+            className="px-6 py-3 rounded-xl bg-gradient-to-r from-[var(--gradient-start)] to-[var(--gradient-end)] text-white font-semibold hover:opacity-90 transition-all duration-300 glow hover:scale-105"
           >
-            Entrar em contacto
+            {t.hero.ctaPrimary}
           </a>
           <a
             href="#projects"
-            className="px-6 py-3 rounded-xl border border-[var(--card-border)] text-[var(--muted)] hover:text-white hover:border-[var(--accent)]/50 transition-all duration-300 hover:scale-105"
+            className="px-6 py-3 rounded-xl border border-[var(--card-border)] text-[var(--muted)] hover:text-[var(--foreground)] hover:border-[var(--accent)]/50 transition-all duration-300 hover:scale-105"
           >
-            Ver projetos
+            {t.hero.ctaSecondary}
           </a>
         </motion.div>
 
@@ -120,7 +119,7 @@ export function Hero() {
           transition={{ duration: 0.8, delay: 0.7 }}
           className="inline-flex flex-col items-center text-[var(--muted)] hover:text-[var(--accent)] transition-colors"
         >
-          <span className="text-xs mb-2 tracking-widest uppercase">Scroll</span>
+          <span className="text-xs mb-2 tracking-widest uppercase">{t.hero.scroll}</span>
           <motion.div animate={{ y: [0, 8, 0] }} transition={{ duration: 1.5, repeat: Infinity }}>
             <ArrowDown size={18} />
           </motion.div>
