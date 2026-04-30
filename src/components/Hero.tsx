@@ -7,7 +7,7 @@ import { useEffect } from "react";
 import { useLang } from "@/context/LangContext";
 
 export function Hero() {
-  const { t } = useLang();
+  const { t, lang } = useLang();
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
   const springX = useSpring(mouseX, { stiffness: 80, damping: 20 });
@@ -77,7 +77,7 @@ export function Hero() {
             {t.hero.description}{" "}
             <span className="text-[var(--foreground)] font-medium">{t.hero.performance}</span>,{" "}
             <span className="text-[var(--foreground)] font-medium">{t.hero.design}</span>{" "}
-            {t.hero.description === "Apaixonado por criar experiências digitais que combinam" ? "e" : "and"}{" "}
+            {lang === "pt" ? "e" : "and"}{" "}
             <span className="text-[var(--foreground)] font-medium">{t.hero.cleanCode}</span>.
           </p>
         </motion.div>

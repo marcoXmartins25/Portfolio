@@ -106,7 +106,7 @@ export function Navbar() {
 
           <a
             href="#contact"
-            className="hidden md:flex px-4 py-2 rounded-lg bg-gradient-to-r from-[var(--gradient-start)] to-[var(--gradient-end)] text-[#050508] text-sm font-semibold hover:opacity-90 transition-opacity"
+            className="hidden md:flex px-4 py-2 rounded-lg bg-gradient-to-r from-[var(--gradient-start)] to-[var(--gradient-end)] text-white text-sm font-semibold hover:opacity-90 transition-opacity"
           >
             {t.nav.cta}
           </a>
