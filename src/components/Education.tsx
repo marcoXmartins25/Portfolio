@@ -4,6 +4,7 @@ import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import { GraduationCap } from "lucide-react";
 import { useLang } from "@/context/LangContext";
+import { SectionHeading } from "@/components/SectionHeading";
 
 export function Education() {
   const ref = useRef(null);
@@ -11,22 +12,16 @@ export function Education() {
   const { t } = useLang();
 
   return (
-    <section id="education" className="py-28 px-6" ref={ref}>
+    <section id="education" className="py-20 md:py-28 px-6" ref={ref}>
       <div className="max-w-6xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
         >
-          <div className="flex items-center gap-4 mb-12">
-            <div className="h-px flex-1 bg-gradient-to-r from-transparent to-[var(--accent)]/30" />
-            <h2 className="text-3xl md:text-4xl font-black">
-              <span className="gradient-text">{t.education.title}</span>
-            </h2>
-            <div className="h-px flex-1 bg-gradient-to-l from-transparent to-[var(--accent)]/30" />
-          </div>
+          <SectionHeading index={3} title={t.education.title} />
 
-          <div className="grid md:grid-cols-2 gap-8">
+          <div className={t.education.items.length === 1 ? "max-w-2xl mx-auto" : "grid md:grid-cols-2 gap-8"}>
             {t.education.items.map((edu, index) => (
               <motion.div
                 key={index}

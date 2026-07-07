@@ -6,6 +6,7 @@ import { Mail, MapPin, Phone, Send, CheckCircle, AlertCircle, Loader2 } from "lu
 import { GithubIcon } from "@/components/icons/GithubIcon";
 import { useLang } from "@/context/LangContext";
 import { sendEmail } from "@/app/actions";
+import { SectionHeading } from "@/components/SectionHeading";
 
 export function Contact() {
   const ref = useRef(null);
@@ -31,25 +32,19 @@ export function Contact() {
       (e.target as HTMLFormElement).reset();
     } else {
       setStatus("error");
-      setErrorMsg(result.error ?? "Erro desconhecido.");
+      setErrorMsg(result.error ?? t.contact.form.errorFallback);
     }
   }
 
   return (
-    <section id="contact" className="py-28 px-6" ref={ref}>
+    <section id="contact" className="py-20 md:py-28 px-6" ref={ref}>
       <div className="max-w-6xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
         >
-          <div className="flex items-center gap-4 mb-12">
-            <div className="h-px flex-1 bg-gradient-to-r from-transparent to-[var(--accent)]/30" />
-            <h2 className="text-3xl md:text-4xl font-black">
-              <span className="gradient-text">{t.contact.title}</span>
-            </h2>
-            <div className="h-px flex-1 bg-gradient-to-l from-transparent to-[var(--accent)]/30" />
-          </div>
+          <SectionHeading index={7} title={t.contact.title} />
 
           <div className="grid md:grid-cols-2 gap-12">
             <div className="space-y-8">
@@ -121,12 +116,12 @@ export function Contact() {
 
               {/* Feedback */}
               {status === "success" && (
-                <div className="flex items-center gap-2 text-sm text-[var(--accent-3)] bg-[var(--accent-3)]/10 border border-[var(--accent-3)]/20 px-4 py-3 rounded-xl">
-                  <CheckCircle size={16} /> Mensagem enviada com sucesso!
+                <div role="status" className="flex items-center gap-2 text-sm text-[var(--accent-3)] bg-[var(--accent-3)]/10 border border-[var(--accent-3)]/20 px-4 py-3 rounded-xl">
+                  <CheckCircle size={16} /> {t.contact.form.success}
                 </div>
               )}
               {status === "error" && (
-                <div className="flex items-center gap-2 text-sm text-red-400 bg-red-400/10 border border-red-400/20 px-4 py-3 rounded-xl">
+                <div role="alert" className="flex items-center gap-2 text-sm text-red-400 bg-red-400/10 border border-red-400/20 px-4 py-3 rounded-xl">
                   <AlertCircle size={16} /> {errorMsg}
                 </div>
               )}
@@ -134,12 +129,13 @@ export function Contact() {
               <motion.button
                 type="submit"
                 disabled={status === "loading"}
+                aria-busy={status === "loading"}
                 whileHover={{ scale: status === "loading" ? 1 : 1.02 }}
                 whileTap={{ scale: status === "loading" ? 1 : 0.98 }}
                 className="w-full py-3 px-6 rounded-xl bg-gradient-to-r from-[var(--gradient-start)] to-[var(--gradient-end)] text-white font-semibold flex items-center justify-center gap-2 hover:opacity-90 transition-opacity glow disabled:opacity-60 disabled:cursor-not-allowed"
               >
                 {status === "loading" ? (
-                  <><Loader2 size={16} className="animate-spin" /> A enviar...</>
+                  <><Loader2 size={16} className="animate-spin" /> {t.contact.form.sending}</>
                 ) : (
                   <><Send size={16} /> {t.contact.form.send}</>
                 )}

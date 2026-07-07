@@ -3,6 +3,7 @@
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import { useLang } from "@/context/LangContext";
+import { SectionHeading } from "@/components/SectionHeading";
 
 export function SoftSkills() {
   const ref = useRef(null);
@@ -10,20 +11,14 @@ export function SoftSkills() {
   const { t } = useLang();
 
   return (
-    <section id="soft-skills" className="py-28 px-6" ref={ref}>
+    <section id="soft-skills" className="py-20 md:py-28 px-6" ref={ref}>
       <div className="max-w-6xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
         >
-          <div className="flex items-center gap-4 mb-12">
-            <div className="h-px flex-1 bg-gradient-to-r from-transparent to-[var(--accent)]/30" />
-            <h2 className="text-3xl md:text-4xl font-black">
-              <span className="gradient-text">{t.softSkills.title}</span>
-            </h2>
-            <div className="h-px flex-1 bg-gradient-to-l from-transparent to-[var(--accent)]/30" />
-          </div>
+          <SectionHeading index={6} title={t.softSkills.title} />
 
           <div className="grid md:grid-cols-2 gap-12">
             <div>

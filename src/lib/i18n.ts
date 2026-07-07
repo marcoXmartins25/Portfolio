@@ -9,6 +9,7 @@ export const translations = {
       softSkills: "Idiomas",
       contact: "Contacto",
       cta: "Contactar",
+      skip: "Saltar para o conteúdo",
     },
     hero: {
       available: "Disponível para novas oportunidades",
@@ -88,12 +89,14 @@ export const translations = {
           description:
             "Plataforma SaaS multi-tenant para gestão de laboratórios e equipamentos, com foco na organização de aulas e otimização de recursos. Coordenação de equipa e definição de prioridades.",
           label: "SaaS",
+          tech: ["React", "PHP", "MySQL"],
         },
         {
           title: "Plataforma SaaS RGPD / RGPC",
           description:
             "Plataforma multi-tenant para gestão de documentos RGPD e RGPC, com sistema de e-mails dinâmico por cliente (SMTP) e auditoria compatível com RGPD.",
           label: "Compliance",
+          tech: ["PHP", "MySQL", "SMTP"],
         },
         {
           title: "SprintBase",
@@ -101,6 +104,7 @@ export const translations = {
             "Aplicação full-stack para gestão de sprints de desenvolvimento. Cria sprints, gere tarefas com prioridades e exporta relatórios PDF. Projeto open source com licença MIT.",
           label: "Open Source",
           featured: true,
+          tech: ["Node.js", "React", "PostgreSQL"],
         },
       ],
     },
@@ -158,11 +162,15 @@ export const translations = {
         message: "Mensagem",
         messagePlaceholder: "A tua mensagem...",
         send: "Enviar Mensagem",
+        sending: "A enviar...",
+        success: "Mensagem enviada com sucesso!",
+        errorFallback: "Erro ao enviar. Tenta novamente.",
       },
     },
     footer: {
       madeWith: "Feito com",
       and: "&",
+      backToTop: "Voltar ao topo",
     },
   },
 
@@ -176,6 +184,7 @@ export const translations = {
       softSkills: "Languages",
       contact: "Contact",
       cta: "Contact me",
+      skip: "Skip to content",
     },
     hero: {
       available: "Available for new opportunities",
@@ -255,12 +264,14 @@ export const translations = {
           description:
             "Multi-tenant SaaS platform for laboratory and equipment management, focused on class scheduling and resource optimization. Team coordination and task prioritization.",
           label: "SaaS",
+          tech: ["React", "PHP", "MySQL"],
         },
         {
           title: "GDPR / RGPC SaaS Platform",
           description:
             "Multi-tenant platform for GDPR and RGPC document management, with dynamic per-client email system (SMTP) and GDPR-compliant auditing.",
           label: "Compliance",
+          tech: ["PHP", "MySQL", "SMTP"],
         },
         {
           title: "SprintBase",
@@ -268,6 +279,7 @@ export const translations = {
             "Full-stack application for development sprint management. Create sprints, manage tasks with priorities and export PDF reports. Open source project under MIT license.",
           label: "Open Source",
           featured: true,
+          tech: ["Node.js", "React", "PostgreSQL"],
         },
       ],
     },
@@ -325,11 +337,15 @@ export const translations = {
         message: "Message",
         messagePlaceholder: "Your message...",
         send: "Send Message",
+        sending: "Sending...",
+        success: "Message sent successfully!",
+        errorFallback: "Failed to send. Please try again.",
       },
     },
     footer: {
       madeWith: "Made with",
       and: "&",
+      backToTop: "Back to top",
     },
   },
 } as const;

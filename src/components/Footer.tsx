@@ -26,7 +26,7 @@ export function Footer() {
           <span className="text-[var(--accent-2)]">Tailwind CSS</span>
         </p>
         <a href="#" className="text-xs text-[var(--muted)] hover:text-[var(--accent)] transition-colors">
-          {t.hero.scroll} ↑
+          {t.footer.backToTop} ↑
         </a>
       </div>
     </motion.footer>

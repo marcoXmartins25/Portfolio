@@ -26,7 +26,7 @@ export function Hero() {
   return (
     <section className="min-h-screen flex items-center justify-center relative overflow-hidden pt-20">
       <motion.div
-        className="fixed w-[500px] h-[500px] rounded-full pointer-events-none z-0"
+        className="fixed w-[500px] h-[500px] rounded-full pointer-events-none z-0 hidden md:block"
         style={{
           x: springX,
           y: springY,
@@ -122,11 +122,12 @@ export function Hero() {
             <div className="relative w-56 h-56 md:w-72 md:h-72">
               {/* Glow ring */}
               <div className="absolute inset-0 rounded-full p-[3px]" style={{ background: "linear-gradient(135deg, var(--accent), var(--accent-2))" }}>
-                <div className="w-full h-full rounded-full overflow-hidden">
+                <div className="relative w-full h-full rounded-full overflow-hidden">
                   <Image
                     src="/MarcoMartins.png"
                     alt="Marco Martins"
                     fill
+                    sizes="(min-width: 768px) 288px, 224px"
                     className="object-cover rounded-full"
                     priority
                   />

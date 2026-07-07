@@ -44,6 +44,16 @@ html {
   scroll-behavior: smooth;
 }
 
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+button:not(:disabled),
+[role="button"] {
+  cursor: pointer;
+}
+
 section[id] {
   scroll-margin-top: 80px;
 }
@@ -149,4 +159,18 @@ body {
   text-justify: inter-word;
   -webkit-hyphens: auto;
   hyphens: auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

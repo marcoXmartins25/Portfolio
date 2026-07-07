@@ -4,8 +4,9 @@ import { motion, useInView, useMotionValue, useSpring, useTransform } from "fram
 import { useRef } from "react";
 import { Code2, Rocket, Users } from "lucide-react";
 import { useLang } from "@/context/LangContext";
+import { SectionHeading } from "@/components/SectionHeading";
 
-const icons = [<Code2 size={20} />, <Rocket size={20} />, <Users size={20} />];
+const icons = [<Code2 key="code" size={20} />, <Rocket key="rocket" size={20} />, <Users key="users" size={20} />];
 const colors = ["var(--accent)", "var(--accent-2)", "var(--accent-3)"];
 
 function TiltCard({ children, className }: { children: React.ReactNode; className?: string }) {
@@ -41,20 +42,14 @@ export function About() {
   const { t } = useLang();
 
   return (
-    <section id="about" className="py-28 px-6" ref={ref}>
+    <section id="about" className="py-20 md:py-28 px-6" ref={ref}>
       <div className="max-w-6xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
         >
-          <div className="flex items-center gap-4 mb-12">
-            <div className="h-px flex-1 bg-gradient-to-r from-transparent to-[var(--accent)]/30" />
-            <h2 className="text-3xl md:text-4xl font-black">
-              <span className="gradient-text">{t.about.title}</span>
-            </h2>
-            <div className="h-px flex-1 bg-gradient-to-l from-transparent to-[var(--accent)]/30" />
-          </div>
+          <SectionHeading index={1} title={t.about.title} />
 
           <div className="grid md:grid-cols-2 gap-16 items-center">
              <div className="space-y-5">

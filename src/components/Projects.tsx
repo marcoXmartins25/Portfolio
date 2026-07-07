@@ -5,11 +5,12 @@ import { useRef } from "react";
 import { ExternalLink, Star } from "lucide-react";
 import { GithubIcon } from "@/components/icons/GithubIcon";
 import { useLang } from "@/context/LangContext";
+import { SectionHeading } from "@/components/SectionHeading";
 
-const projectMeta = [
-  { accent: "#00d4ff", github: "https://github.com/marcoXmartins25", live: "#" },
-  { accent: "#7c3aed", github: "https://github.com/marcoXmartins25", live: "#" },
-  { accent: "#10b981", github: "https://github.com/marcoXmartins25", live: "#", featured: true },
+const projectMeta: { accent: string; github: string; live?: string; featured?: boolean }[] = [
+  { accent: "#00d4ff", github: "https://github.com/marcoXmartins25" },
+  { accent: "#7c3aed", github: "https://github.com/marcoXmartins25" },
+  { accent: "#10b981", github: "https://github.com/marcoXmartins25", featured: true },
 ];
 
 export function Projects() {
@@ -18,20 +19,14 @@ export function Projects() {
   const { t } = useLang();
 
   return (
-    <section id="projects" className="py-28 px-6" ref={ref}>
+    <section id="projects" className="py-20 md:py-28 px-6" ref={ref}>
       <div className="max-w-6xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
         >
-          <div className="flex items-center gap-4 mb-12">
-            <div className="h-px flex-1 bg-gradient-to-r from-transparent to-[var(--accent)]/30" />
-            <h2 className="text-3xl md:text-4xl font-black">
-              <span className="gradient-text">{t.projects.title}</span>
-            </h2>
-            <div className="h-px flex-1 bg-gradient-to-l from-transparent to-[var(--accent)]/30" />
-          </div>
+          <SectionHeading index={4} title={t.projects.title} />
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {t.projects.items.map((project, index) => {
@@ -80,13 +75,26 @@ export function Projects() {
                   <div className="p-6">
                     <h3 className="text-lg font-bold mb-2 group-hover:text-[var(--foreground)] transition-colors">{project.title}</h3>
                     <p className="text-[var(--muted)] text-sm mb-4 leading-relaxed line-clamp-3">{project.description}</p>
+                    <div className="flex flex-wrap gap-2 mb-4">
+                      {project.tech.map((tech) => (
+                        <span
+                          key={tech}
+                          className="px-2 py-1 text-xs rounded-md font-mono border"
+                          style={{ color: meta.accent, borderColor: `${meta.accent}30`, background: `${meta.accent}0d` }}
+                        >
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
                     <div className="flex gap-4 pt-4 border-t border-[var(--card-border)]">
                       <a href={meta.github} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm text-[var(--muted)] hover:text-[var(--foreground)] transition-colors">
                         <GithubIcon size={14} /> {t.projects.code}
                       </a>
-                      <a href={meta.live} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm text-[var(--muted)] hover:text-[var(--foreground)] transition-colors">
-                        <ExternalLink size={14} /> {t.projects.demo}
-                      </a>
+                      {meta.live && (
+                        <a href={meta.live} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm text-[var(--muted)] hover:text-[var(--foreground)] transition-colors">
+                          <ExternalLink size={14} /> {t.projects.demo}
+                        </a>
+                      )}
                     </div>
                   </div>
                 </motion.div>

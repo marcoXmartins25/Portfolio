@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useScroll } from "framer-motion";
 import { useEffect, useState } from "react";
 import { Sun, Moon, Menu, X } from "lucide-react";
 import { useLang } from "@/context/LangContext";
@@ -12,6 +12,7 @@ export function Navbar() {
   const [active, setActive] = useState("");
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const { scrollYProgress } = useScroll();
 
   const links = [
     { name: t.nav.about, href: "#about" },
@@ -54,6 +55,12 @@ export function Navbar() {
 
   return (
     <>
+      <a
+        href="#main"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:rounded-lg focus:bg-[var(--card-bg)] focus:border focus:border-[var(--accent)] focus:text-[var(--foreground)] focus:text-sm"
+      >
+        {t.nav.skip}
+      </a>
       <motion.nav
         initial={{ y: -100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
@@ -107,6 +114,7 @@ export function Navbar() {
             {/* Language toggle */}
             <button
               onClick={toggle}
+              aria-label={lang === "pt" ? "Switch to English" : "Mudar para Português"}
               className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-[var(--card-border)] text-sm font-mono text-[var(--muted)] hover:text-[var(--foreground)] hover:border-[var(--accent)]/40 transition-all duration-200"
             >
               <span className={lang === "pt" ? "text-[var(--accent)]" : "text-[var(--muted)]"}>PT</span>
@@ -132,6 +140,13 @@ export function Navbar() {
             </button>
           </div>
         </div>
+
+        {/* Scroll progress */}
+        <motion.div
+          aria-hidden="true"
+          className="absolute bottom-0 left-0 right-0 h-[2px] origin-left bg-gradient-to-r from-[var(--gradient-start)] to-[var(--gradient-end)]"
+          style={{ scaleX: scrollYProgress }}
+        />
       </motion.nav>
 
       {/* Mobile drawer */}
